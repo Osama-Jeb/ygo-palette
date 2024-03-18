@@ -7,6 +7,7 @@ import jsonData from "../../backend/cardinfo.php.json"
 
 import ygoBack from "./assets/ygoBack.jpg";
 import star from "./assets/star.png";
+import Loading from './components/Loading';
 
 function App() {
   const data = jsonData;
@@ -19,7 +20,6 @@ function App() {
   const [palette, setPalette] = useState([]);
 
 
-  const [initialLoad, setInitialLoad] = useState(true);
 
   const fetchImage = () => {
     setLoading(true);
@@ -28,9 +28,9 @@ function App() {
     setNumber(newNum);
   };
 
-  // useEffect to trigger API call when 'number' changes
+
   useEffect(() => {
-    axios.get(`http://localhost:3001/${number}`, { responseType: 'blob' })
+    axios.get(`https://ygo-palette-bv3z.vercel.app/${number}`, { responseType: 'blob' })
       .then(response => {
         const imageUrl = URL.createObjectURL(response.data);
         setImageSrc(imageUrl);
@@ -61,9 +61,12 @@ function App() {
       .finally(() => {
         setLoading(false);
       });
-  }, [number]); // Run this effect whenever 'number' changes
+  }, [number]); 
+
+  
 
 
+  
   const toHex = (rgb) => {
     let hex = Number(rgb).toString(16);
     if (hex.length < 2) {
@@ -72,6 +75,8 @@ function App() {
 
     return hex;
   };
+
+
 
   const ListItem = (props) => {
     const [copied, setCopied] = useState(false);
@@ -100,6 +105,8 @@ function App() {
     )
   }
 
+
+
   function hexToRgb(hex) {
     hex = hex.replace(/^#/, '');
 
@@ -110,11 +117,15 @@ function App() {
 
     return { r, g, b };
   }
+
+
+
   const textColor = (background) => {
     const { r, g, b } = hexToRgb(background);
 
     return (r * 0.299 + g * 0.587 + b * 0.114) > 186 ? 'text-black ' : 'text-white'
   }
+
 
 
 
@@ -159,13 +170,7 @@ function App() {
 
           {
             loading && <div ref={loadPage} className='bg-black opacity-50 w-[100vw] h-[100vh] z-30 fixed top-0 right-0 flex items-center justify-center'>
-              <div role="status">
-                <svg aria-hidden="true" className="w-12 h-12 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
-                  <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" />
-                </svg>
-                <span className="sr-only">Loading...</span>
-              </div>
+              <Loading />
             </div>
           }
 
@@ -187,9 +192,10 @@ function App() {
                 Random Card</button>
             </div>
           </aside>
+
           <main className="w-[75vw] flex items-center justify-center flex-col border-4 border-black">
 
-
+            {/* Hero Section with the image of the card spinning */}
             <div
               style={{
                 backgroundColor: palette[1],
@@ -206,7 +212,7 @@ function App() {
                 <div className="flip-container">
                   <div className="flipper">
                     <div className="front">
-                      <img width={325} className="object-cover hover:shadow-lg" src={imageSrc} alt="" />
+                      <img width={325} className="object-cover hover:shadow-lg" src={data.data[number].card_images[0].image_url} alt="" />
                     </div>
                     <div className="back">
                       <img width={325} className="object-cover hover:shadow-lg" src={ygoBack} alt="" />
@@ -217,6 +223,8 @@ function App() {
               </div>
             </div>
 
+
+            {/* Palette Items Listed */}
             <div className='min-h-[75vh] p-14  grid grid-cols-3 gap-3'>
               {
                 palette && palette.map((color, index) =>
@@ -227,6 +235,8 @@ function App() {
               }
             </div>
 
+
+            {/* Detailed Card Info such as levels and description etc */}
             <div
               style={{ backgroundColor: palette[2] }}
               className={`h-[75vh] flex items-center justify-around p-12 w-[100%] ${palette[2] ? textColor(palette[2]) : ''}`}>

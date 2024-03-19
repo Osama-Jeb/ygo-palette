@@ -1,9 +1,4 @@
-import { textColor } from "../helpfulfunction";
-
-const Sidebar = (props) => {
-
-    const data = props.data;
-
+const Sidebar = () => {
     return (
         <>
             <aside

@@ -1,4 +1,5 @@
-const Sidebar = () => {
+const Sidebar = (props) => {
+    const data = props.data
     return (
         <>
             <aside

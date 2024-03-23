@@ -7,12 +7,12 @@ import jsonData from "../../backend/cardinfo.php.json"
 
 import Loading from './components/Loading';
 import Listitem from './components/Listitem';
-
-import {  toHex } from './helpfulfunction';
-
 import Sidebar from './components/Sidebar';
 import Hero from './components/Hero';
 import Detailedinfo from './components/Detailedinfo';
+
+import { toHex } from './helpfulfunction';
+
 
 function App() {
   const data = jsonData;
@@ -31,6 +31,16 @@ function App() {
     const newNum = Math.round(Math.random() * 10000);
     setNumber(newNum);
   };
+
+
+  const searchCard = (name) => {
+    name = name.toLowerCase();
+
+    const foundIndex = data.data.findIndex(obj => obj.name.toLowerCase().includes(name));
+    if (foundIndex !== -1) {
+      setNumber(foundIndex)
+    } 
+  }
 
 
   useEffect(() => {
@@ -79,7 +89,7 @@ function App() {
             </div>
           }
 
-          <Sidebar palette={palette} data={data} number={number} imageSrc={imageSrc} fetchImage={fetchImage} />
+          <Sidebar searchCard={searchCard} palette={palette} data={data} number={number} imageSrc={imageSrc} fetchImage={fetchImage} />
 
           <main className="w-[75vw] flex items-center justify-center flex-col border-4 border-black">
 
@@ -88,7 +98,7 @@ function App() {
 
 
             {/* Palette Items Listed */}
-            <div className='min-h-[75vh] p-14  grid grid-cols-3 gap-3'>
+            <div className='min-h-[75vh] p-14 grid grid-cols-3 gap-3'>
               {
                 palette && palette.map((color, index) =>
                   <>

@@ -13,9 +13,7 @@ const Hero = (props) => {
                 className={`h-[100vh] p-5 flex items-center justify-around w-[100%] ${props.palette[1] ? textColor(props.palette[1]) : ''}`}>
                 <div>
 
-                    <p> You {phrase(data, props.number)} <br />
                         <span className="font-bold text-4xl ygoBold"> {props.data.data[props.number].name}</span>
-                    </p>
                     <p>This website generates random Color Palette <br /> base on this Card</p>
                 </div>
                 <div>

@@ -21,7 +21,6 @@ const Listitem = (props) => {
                 }}
                 style={{ backgroundColor: props.color }}
                 className={`relative rounded-xl text-3xl flex items-center justify-center w-[275px] h-[175px] font-bold cursor-pointer ${textColor(props.color)}`}>
-                <span className="absolute text-sm top-[10px] right-[10px] z-10"></span>
                 {copied ? 'COPIED' : props.color.toUpperCase()}
             </span>
         </>

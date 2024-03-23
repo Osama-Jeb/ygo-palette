@@ -12,6 +12,7 @@ import Hero from './components/Hero';
 import Detailedinfo from './components/Detailedinfo';
 
 import { toHex } from './helpfulfunction';
+import Relatedcards from './components/Relatedcards';
 
 
 function App() {
@@ -23,6 +24,15 @@ function App() {
 
   const [imageSrc, setImageSrc] = useState('');
   const [palette, setPalette] = useState([]);
+
+  const [similarCards, setSimilarCards] = useState([]);
+  const findSimilar = (name) => {
+    name = name.split(" ").pop().toLowerCase();
+    const filteredObjects = data.data.filter(obj => obj.name.toLowerCase().includes(name));
+    const first9Items = filteredObjects.slice(0, 9);
+
+    setSimilarCards(first9Items);
+  }
 
 
   const fetchImage = () => {
@@ -39,7 +49,8 @@ function App() {
     const foundIndex = data.data.findIndex(obj => obj.name.toLowerCase().includes(name));
     if (foundIndex !== -1) {
       setNumber(foundIndex)
-    } 
+    }
+
   }
 
 
@@ -64,7 +75,7 @@ function App() {
               const hex = `#${toHex(color[0])}${toHex(color[1])}${toHex(color[2])}`;
               return hex;
             });
-
+            findSimilar(data.data[number].name)
             setPalette(newPalette);
           };
         };
@@ -112,6 +123,8 @@ function App() {
             {/* Detailed Card Info such as levels and description etc */}
             <Detailedinfo palette={palette} data={data} number={number} />
 
+
+            <Relatedcards findSimilar={findSimilar} searchCard={searchCard} similarCards={similarCards} palette={palette} data={data} number={number} />
           </main>
         </div>
       </div>

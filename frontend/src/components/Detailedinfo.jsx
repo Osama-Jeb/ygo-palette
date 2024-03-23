@@ -10,7 +10,7 @@ const Detailedinfo = (props) => {
                 style={{ backgroundColor: props.palette[2] }}
                 className={`h-[75vh] flex items-center justify-around p-12 w-[100%] ${props.palette[2] ? textColor(props.palette[2]) : ''}`}>
                 <div className="flex flex-col w-[100%] items-start">
-                    <p className="font-bold text-4xl">{data.data[props.number].name}</p>
+                    <p className="font-bold text-4xl ygoBold">{data.data[props.number].name}</p>
                     <div className="flex items-center gap-2 mt-2">
                         {tag(data.data[props.number].frameType, props.palette[0])}
                         {tag(data.data[props.number].type, props.palette[1])}

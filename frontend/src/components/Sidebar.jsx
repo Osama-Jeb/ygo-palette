@@ -19,8 +19,7 @@ const Sidebar = (props) => {
                         className="fixed z-20 w-[99.5vw] h-[100vh] flex items-center justify-center">
                         <img
                             onClick={() => setZoom(false)}
-                            width={500}
-                            className='rounded-xl object-cover mt-3 hover:cursor-zoom-out' src={data.data[props.number].card_images[0].image_url_cropped} alt="Image Doesnt Exist :(" />
+                            className='w-[49vw] rounded-2xl object-cover mt-3 hover:cursor-zoom-out' src={data.data[props.number].card_images[0].image_url_cropped} alt="Image Doesnt Exist :(" />
                     </div>
                 </>
             }
@@ -31,7 +30,7 @@ const Sidebar = (props) => {
               `}>
 
                 <div className='flex flex-col items-center justify-between pt-4'>
-                    <p className='font-bold text-3xl text-center h-[70px] ygoBold'>{data.data[props.number].name}</p>
+                    <p className='font-bold text-3xl text-center min-h-[70px] ygoBold'>{data.data[props.number].name}</p>
 
                     <img
                         onClick={() => setZoom(true)}

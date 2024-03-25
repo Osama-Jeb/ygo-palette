@@ -1,26 +1,30 @@
 import ygoBack from "../assets/ygoBack.jpg";
-import { phrase } from "./tagsNphrases";
 import { textColor } from "../helpfulfunction";
+import { useContext } from "react";
+import { allInfo } from "../App";
 
 const Hero = (props) => {
-    const data = props.data
+    const myInfo = useContext(allInfo);
+    const data = myInfo.data;
+    const number = myInfo.number;
+    const palette = myInfo.palette;
     return (
         <>
             <div
                 style={{
-                    backgroundColor: props.palette[1],
+                    backgroundColor: palette[1],
                 }}
-                className={`h-[100vh] p-5 flex items-center justify-around w-[100%] ${props.palette[1] ? textColor(props.palette[1]) : ''}`}>
+                className={`min-h-[100vh] p-5 flex items-center justify-around gap-3 w-[100%] ${palette[1] ? textColor(palette[1]) : ''}`}>
                 <div>
 
-                        <span className="font-bold text-4xl ygoBold"> {props.data.data[props.number].name}</span>
-                    <p>This website generates random Color Palette <br /> base on this Card</p>
+                    <span className="font-bold text-6xl ygoBold"> {data.data[number].name}</span>
+                    <p className="text-2xl">This website generates random Color Palette <br /> base on this Card</p>
                 </div>
                 <div>
                     <div className="flip-container">
                         <div className="flipper">
                             <div className="front">
-                                <img width={325} className="object-cover hover:shadow-lg" src={data.data[props.number].card_images[0].image_url} alt="" />
+                                <img width={325} className="object-cover hover:shadow-lg" src={data.data[number].card_images[0].image_url} alt="" />
                             </div>
                             <div className="back">
                                 <img width={325} className="object-cover hover:shadow-lg" src={ygoBack} alt="" />

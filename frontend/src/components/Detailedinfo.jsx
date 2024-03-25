@@ -1,41 +1,46 @@
+import { useContext } from "react";
 import { textColor } from "../helpfulfunction";
 import { tag, level, atkNdef } from "./tagsNphrases";
+import { allInfo } from "../App";
 
 const Detailedinfo = (props) => {
 
-    const data = props.data;
+    const myInfo = useContext(allInfo);
+    const data = myInfo.data;
+    const number = myInfo.number;
+    const palette = myInfo.palette;
     return (
         <>
             <div
-                style={{ backgroundColor: props.palette[2] }}
-                className={`h-[75vh] flex items-center justify-around p-12 w-[100%] ${props.palette[2] ? textColor(props.palette[2]) : ''}`}>
+                style={{ backgroundColor: palette[2] }}
+                className={`min-h-[75vh] flex items-center justify-around p-12 w-[100%] ${palette[2] ? textColor(palette[2]) : ''}`}>
                 <div className="flex flex-col w-[100%] items-start">
-                    <p className="font-bold text-4xl ygoBold">{data.data[props.number].name}</p>
-                    <div className="flex items-center gap-2 mt-2">
-                        {tag(data.data[props.number].frameType, props.palette[0])}
-                        {tag(data.data[props.number].type, props.palette[1])}
+                    <p className="font-bold text-5xl ygoBold">{data.data[number].name}</p>
+                    <div className="text-xl flex items-center gap-2 mt-2">
+                        {tag(data.data[number].frameType, palette[0])}
+                        {tag(data.data[number].type, palette[1])}
                     </div>
 
-                    <div className="flex items-center gap-2 mt-2">
-                        {tag(data.data[props.number].race, props.palette[3])}
-                        {tag(data.data[props.number].attribute, props.palette[4])}
+                    <div className="text-xl flex items-center gap-2 mt-2">
+                        {tag(data.data[number].race, palette[3])}
+                        {tag(data.data[number].attribute, palette[4])}
                     </div>
 
-                    <div className="mt-2">
+                    <div className="text-xl mt-2">
                         {
-                            data.data[props.number].level ?
-                                level(data.data[props.number].level)
+                            data.data[number].level ?
+                                level(data.data[number].level)
                                 :
                                 ''
                         }
                     </div>
-                    <div className="font-bold text-xl mt-2">
-                        {atkNdef(data.data[props.number].atk, data.data[props.number].def)}
+                    <div className="font-bold text-3xl mt-2">
+                        {atkNdef(data.data[number].atk, data.data[number].def)}
                     </div>
 
                     <p
-                        className="w-[70%] text-wrap ygoItalic"
-                    >{data.data[props.number].desc}</p>
+                        className="w-[70%] text-wrap ygoItalic text-2xl"
+                    >{data.data[number].desc}</p>
 
                 </div>
             </div>

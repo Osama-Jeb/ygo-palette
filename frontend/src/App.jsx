@@ -1,6 +1,6 @@
 
-import { useEffect, useRef, useState } from 'react'
 import './App.css'
+import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios';
 import ColorThief from "colorthief";
 import jsonData from "../../backend/cardinfo.php.json"
@@ -10,28 +10,32 @@ import Listitem from './components/Listitem';
 import Sidebar from './components/Sidebar';
 import Hero from './components/Hero';
 import Detailedinfo from './components/Detailedinfo';
-
-import { toHex } from './helpfulfunction';
 import Relatedcards from './components/Relatedcards';
 
+import { toHex } from './helpfulfunction';
+
+export const allInfo = React.createContext()
 
 function App() {
   const data = jsonData;
   const [number, setNumber] = useState(2562);
+  const [palette, setPalette] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const loadPage = useRef();
 
   const [imageSrc, setImageSrc] = useState('');
-  const [palette, setPalette] = useState([]);
 
   const [similarCards, setSimilarCards] = useState([]);
   const findSimilar = (name) => {
-    name = name.split(" ").pop().toLowerCase();
-    const filteredObjects = data.data.filter(obj => obj.name.toLowerCase().includes(name));
-    const first9Items = filteredObjects.slice(0, 9);
+    name = name.split(" ")[0].toLowerCase();
 
-    setSimilarCards(first9Items);
+    const filteredObjects = data.data.filter(obj => obj.name.toLowerCase().includes(name));
+
+    const shuffledArray = filteredObjects.sort(() => Math.random() - 0.5);
+    const random9Items = shuffledArray.slice(0, 9);
+
+    setSimilarCards(random9Items);
   }
 
 
@@ -88,47 +92,57 @@ function App() {
       });
   }, [number]);
 
-
+  const contextInfo = {
+    data: data,
+    number: number,
+    palette: palette,
+    similarCards: similarCards,
+    fetchImage: fetchImage,
+    findSimilar: findSimilar,
+    searchCard: searchCard,
+  }
   return (
     <>
-      <div>
-        <div className='flex'>
+      <allInfo.Provider value={contextInfo}>
 
-          {
-            loading && <div ref={loadPage} className='bg-black opacity-50 w-[100vw] h-[100vh] z-30 fixed top-0 right-0 flex items-center justify-center'>
-              <Loading />
-            </div>
-          }
+        <div>
+          <div className='flex'>
 
-          <Sidebar searchCard={searchCard} palette={palette} data={data} number={number} imageSrc={imageSrc} fetchImage={fetchImage} />
+            {
+              loading && <div ref={loadPage} className='bg-black opacity-50 w-[100vw] h-[100vh] z-30 fixed top-0 right-0 flex items-center justify-center'>
+                <Loading />
+              </div>
+            }
 
-          <main className="w-[75vw] flex items-center justify-center flex-col border-4 border-black">
+            <Sidebar />
 
-            {/* Hero Section with the image of the card spinning */}
-            <Hero palette={palette} data={data} number={number} />
+            <main className="w-[75vw] flex items-center justify-center flex-col border-4 border-black">
 
-
-            {/* Palette Items Listed */}
-            <div className='min-h-[75vh] p-14 grid grid-cols-3 gap-3'>
-              {
-                palette && palette.map((color, index) =>
-                  <>
-                    <Listitem key={index} color={color} />
-                  </>
-                )
-              }
-            </div>
+              {/* Hero Section with the image of the card spinning */}
+              <Hero />
 
 
-            {/* Detailed Card Info such as levels and description etc */}
-            <Detailedinfo palette={palette} data={data} number={number} />
+              {/* Palette Items Listed */}
+              <div className='min-h-[75vh] p-14 grid grid-cols-3 gap-3'>
+                {
+                  palette && palette.map((color, index) =>
+                    <>
+                      <Listitem key={index} color={color} />
+                    </>
+                  )
+                }
+              </div>
 
 
-            <Relatedcards findSimilar={findSimilar} searchCard={searchCard} similarCards={similarCards} palette={palette} data={data} number={number} />
-          </main>
+              {/* Detailed Card Info such as levels and description etc */}
+              <Detailedinfo />
+
+
+              <Relatedcards findSimilar={findSimilar} searchCard={searchCard} similarCards={similarCards} palette={palette} number={number} />
+            </main>
+          </div>
         </div>
-      </div>
-
+      </allInfo.Provider>
     </>
   )
 }

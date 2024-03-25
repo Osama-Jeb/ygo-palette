@@ -14,7 +14,7 @@ const Hero = (props) => {
                 style={{
                     backgroundColor: palette[1],
                 }}
-                className={`min-h-[100vh] p-5 flex items-center justify-around gap-3 w-[100%] ${palette[1] ? textColor(palette[1]) : ''}`}>
+                className={`sm:min-h-[100vh] h-[150vh] p-5 flex flex-col-reverse sm:flex-row items-center justify-around gap-3 w-[100%] ${palette[1] ? textColor(palette[1]) : ''}`}>
                 <div>
 
                     <span className="font-bold text-6xl ygoBold"> {data.data[number].name}</span>

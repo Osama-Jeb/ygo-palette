@@ -18,7 +18,7 @@ const Relatedcards = (props) => {
                     Similar Cards
                 </p>
                 <div
-                    className={`min-h-[75vh] p-14 grid grid-cols-3 gap-3`}>
+                    className={`min-h-[75vh] p-14 grid grid-cols-2 sm:grid-cols-3 gap-3`}>
                     {
                         myInfo.similarCards.map((card, index) =>
                             <>
@@ -28,7 +28,7 @@ const Relatedcards = (props) => {
                                         myInfo.findSimilar(card.name)
                                     }}
                                     loading="lazy"
-                                    className="hover:cursor-pointer"
+                                    className={`hover:cursor-pointer ${index == 8 ? 'hidden sm:flex' : ''}`}
                                     src={card.card_images[0].image_url} width={275} alt="" />
                             </>
                         )

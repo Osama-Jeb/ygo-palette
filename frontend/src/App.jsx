@@ -20,13 +20,11 @@ function App() {
   const data = jsonData;
   const [number, setNumber] = useState(2562);
   const [palette, setPalette] = useState([]);
-
   const [loading, setLoading] = useState(false);
   const loadPage = useRef();
-
   const [imageSrc, setImageSrc] = useState('');
-
   const [similarCards, setSimilarCards] = useState([]);
+
   const findSimilar = (name) => {
     name = name.split(" ")[0].toLowerCase();
 
@@ -38,10 +36,8 @@ function App() {
     setSimilarCards(random9Items);
   }
 
-
   const fetchImage = () => {
     setLoading(true);
-
     const newNum = Math.round(Math.random() * 10000);
     setNumber(newNum);
   };
@@ -49,7 +45,6 @@ function App() {
 
   const searchCard = (name) => {
     name = name.toLowerCase();
-
     const foundIndex = data.data.findIndex(obj => obj.name.toLowerCase().includes(name));
     if (foundIndex !== -1) {
       setNumber(foundIndex)
@@ -106,7 +101,7 @@ function App() {
       <allInfo.Provider value={contextInfo}>
 
         <div>
-          <div className='flex'>
+          <div className='flex flex-col sm:flex-row'>
 
             {
               loading && <div ref={loadPage} className='bg-black opacity-50 w-[100vw] h-[100vh] z-30 fixed top-0 right-0 flex items-center justify-center'>
@@ -116,18 +111,18 @@ function App() {
 
             <Sidebar />
 
-            <main className="w-[75vw] flex items-center justify-center flex-col border-4 border-black">
+            <main className="sm:w-[75vw] flex items-center justify-center flex-col border-4 border-black">
 
               {/* Hero Section with the image of the card spinning */}
               <Hero />
 
 
               {/* Palette Items Listed */}
-              <div className='min-h-[75vh] p-14 grid grid-cols-3 gap-3'>
+              <div className='sm:min-h-[75vh] w-full p-14 grid sm:grid-cols-3 grid-cols-2 gap-3'>
                 {
                   palette && palette.map((color, index) =>
                     <>
-                      <Listitem key={index} color={color} />
+                      <Listitem key={index} index={index} color={color} />
                     </>
                   )
                 }

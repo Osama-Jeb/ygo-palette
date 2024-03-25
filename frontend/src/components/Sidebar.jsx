@@ -22,13 +22,13 @@ const Sidebar = (props) => {
                         className="fixed z-20 w-[99.5vw] h-[100vh] flex items-center justify-center">
                         <img
                             onClick={() => setZoom(false)}
-                            className='w-[49vw] rounded-2xl object-cover mt-3 hover:cursor-zoom-out' src={data.data[number].card_images[0].image_url_cropped} alt="Image Doesnt Exist :(" />
+                            className='w-[90vw] sm:w-[49vw] rounded-2xl object-cover mt-3 hover:cursor-zoom-out' src={data.data[number].card_images[0].image_url_cropped} alt="Image Doesnt Exist :(" />
                     </div>
                 </>
             }
             <aside
                 style={{ backgroundColor: palette[0] }}
-                className={`w-[25vw] flex flex-col items-center h-[100vh] sticky top-0 left-0
+                className={`sm:w-[25vw] flex flex-col items-center h-[100vh] sm:sticky top-0 left-0
               ${palette[0] ? textColor(palette[0]) : ''}
               `}>
 

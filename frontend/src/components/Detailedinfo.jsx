@@ -13,7 +13,7 @@ const Detailedinfo = (props) => {
         <>
             <div
                 style={{ backgroundColor: palette[2] }}
-                className={`min-h-[75vh] flex items-center justify-around p-12 w-[100%] ${palette[2] ? textColor(palette[2]) : ''}`}>
+                className={`min-h-[95vh] flex items-center justify-around p-12 w-[100%] ${palette[2] ? textColor(palette[2]) : ''}`}>
                 <div className="flex flex-col w-[100%] items-start">
                     <p className="font-bold text-5xl ygoBold">{data.data[number].name}</p>
                     <div className="text-xl flex items-center gap-2 mt-2">
@@ -39,7 +39,7 @@ const Detailedinfo = (props) => {
                     </div>
 
                     <p
-                        className="w-[70%] text-wrap ygoItalic text-2xl"
+                        className="w-[90%] text-wrap leading-relaxed ygoItalic text-2xl"
                     >{data.data[number].desc}</p>
 
                 </div>

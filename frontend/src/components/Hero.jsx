@@ -14,24 +14,14 @@ const Hero = (props) => {
                 style={{
                     backgroundColor: palette[1],
                 }}
-                className={`sm:min-h-[100vh] h-[150vh] p-5 flex flex-col-reverse sm:flex-row items-center justify-around gap-3 w-[100%] ${palette[1] ? textColor(palette[1]) : ''}`}>
+                className={`sm:min-h-[100vh] p-5 flex flex-col-reverse sm:flex-row items-center justify-around gap-3 w-[100%] ${palette[1] ? textColor(palette[1]) : ''}`}>
                 <div>
 
-                    <span className="font-bold text-6xl ygoBold"> {data.data[number].name}</span>
-                    <p className="text-2xl">This website generates random Color Palette <br /> base on this Card</p>
+                    <span className="font-bold text-6xl text-balance  ygoBold"> {data.data[number].name}</span>
+                    <p className="text-2xl text-balance">This website generates random Color Palette <br /> base on this Card</p>
                 </div>
                 <div>
-                    <div className="flip-container">
-                        <div className="flipper">
-                            <div className="front">
-                                <img width={325} className="object-cover hover:shadow-lg" src={data.data[number].card_images[0].image_url} alt="" />
-                            </div>
-                            <div className="back">
-                                <img width={325} className="object-cover hover:shadow-lg" src={ygoBack} alt="" />
-                            </div>
-                            <div className="clear"></div>
-                        </div>
-                    </div>
+                    <img width={325} className="object-cover hover:shadow-lg" src={data.data[number].card_images[0].image_url} alt="" />
                 </div>
             </div>
         </>

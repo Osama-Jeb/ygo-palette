@@ -111,7 +111,7 @@ function App() {
 
             <Sidebar />
 
-            <main className="sm:w-[75vw] flex items-center justify-center flex-col border-4 border-black">
+            <main className="sm:w-[75vw] flex items-center justify-center flex-col">
 
               {/* Hero Section with the image of the card spinning */}
               <Hero />

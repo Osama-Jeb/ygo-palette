@@ -3,11 +3,12 @@ import { textColor } from "../helpfulfunction";
 import { FaSearch, FaDice } from "react-icons/fa";
 import { allInfo } from "../App";
 
-const Sidebar = (props) => {
+const Sidebar = () => {
     const myInfo = useContext(allInfo);
     const data = myInfo.data;
     const number = myInfo.number;
     const palette = myInfo.palette;
+    const searchCard = myInfo.searchCard
 
     const [zoom, setZoom] = useState(false);
     const [name, setName] = useState('');
@@ -53,7 +54,7 @@ const Sidebar = (props) => {
                             onChange={(e) => { setName(e.target.value) }}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
-                                    myInfo.searchCard(e.target.value);
+                                    searchCard(e.target.value);
                                 }
                             }}
                         />
